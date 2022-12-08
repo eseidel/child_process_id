@@ -8,6 +8,9 @@ import 'package:process/process.dart';
 void main(List<String> arguments) {
   var processManager = const LocalProcessManager();
   print("Starting child process...");
+  // Platform.executable works, but 'dart' (which resolves to dart.bat)
+  // does not work (leaks a process).
+  // var process = processManager.start([Platform.executable, 'bin/child.dart']);
   var process = processManager.start(['dart', 'bin/child.dart']);
   process.then((process) {
     process.stdout
