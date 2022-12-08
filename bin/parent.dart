@@ -23,6 +23,13 @@ void main(List<String> arguments) {
       print("child Error: $event");
     });
     print("Child process started: ${process.pid}");
+
+    processManager
+        .run(["tasklist", "/v", "/fi", "pid eq ${process.pid}"]).then((result) {
+      print(
+          "tasklist /v /fi \"pid eq ${process.pid}\" result:\n${result.stdout}");
+    });
+
     print("Waiting 5 seconds");
     Timer(Duration(seconds: 5), () {
       print("Killing child process ${process.pid}");
